@@ -9,10 +9,10 @@ function MovieList() {
         const savedMovies = localStorage.getItem("movies");
 
         return savedMovies ? JSON.parse(savedMovies) : [
-            { id: 1, title: "Black Panther", genre: "Action", year: 2018 },
-            { id: 2, title: "The Avengers", genre: "Action", year: 2012 },
-            { id: 3, title: "Titanic", genre: "Romance", year: 1997 },
-            { id: 4, title: "Spider-Man", genre: "Adventure", year: 2021 }
+            { id: 1, title: "Black Panther", genre: "Action", year: 2018, posterUrl: "" },
+            { id: 2, title: "The Avengers", genre: "Action", year: 2012, posterUrl: "" },
+            { id: 3, title: "Titanic", genre: "Romance", year: 1997, posterUrl: "" },
+            { id: 4, title: "Spider-Man", genre: "Adventure", year: 2021, posterUrl: "" }
         ];
     });
 
@@ -34,7 +34,8 @@ function MovieList() {
             id: Date.now(),
             title: form.title.value.trim(),
             genre: form.genre.value.trim(),
-            year: Number(form.year.value)
+            year: Number(form.year.value),
+            posterUrl: form.posterUrl.value.trim()
         };
 
         setMovies([...movies, newMovie]);
@@ -74,17 +75,13 @@ function MovieList() {
         return matchesSearch && matchesGenre;
     });
 
-    // Movie Statistics
-    const totalMovies = movies.length;
-    const displayedMovies = filteredMovies.length;
-
     return (
         <div>
 
             {/* Movie Statistics */}
             <div className="movie-stats">
-                <p>Total Movies: {totalMovies}</p>
-                <p>Showing: {displayedMovies}</p>
+                <p>Total Movies: {movies.length}</p>
+                <p>Showing: {filteredMovies.length}</p>
             </div>
 
             {/* Search Movies */}
@@ -130,6 +127,12 @@ function MovieList() {
                     name="year"
                     placeholder="Release year"
                     required
+                />
+
+                <input
+                    type="url"
+                    name="posterUrl"
+                    placeholder="Poster image URL (optional)"
                 />
 
                 <button type="submit">Add Movie</button>

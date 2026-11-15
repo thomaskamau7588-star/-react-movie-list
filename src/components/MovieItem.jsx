@@ -7,6 +7,7 @@ function MovieItem({ movie, onDelete, onEdit }) {
     const [title, setTitle] = useState(movie.title);
     const [genre, setGenre] = useState(movie.genre);
     const [year, setYear] = useState(movie.year);
+    const [posterUrl, setPosterUrl] = useState(movie.posterUrl || "");
 
     // Save Edited Movie
     const handleSave = (event) => {
@@ -15,7 +16,8 @@ function MovieItem({ movie, onDelete, onEdit }) {
         onEdit(movie.id, {
             title,
             genre,
-            year: Number(year)
+            year: Number(year),
+            posterUrl
         });
 
         setIsEditing(false);
@@ -30,6 +32,7 @@ function MovieItem({ movie, onDelete, onEdit }) {
                         type="text"
                         value={title}
                         onChange={(event) => setTitle(event.target.value)}
+                        placeholder="Movie title"
                         required
                     />
 
@@ -37,6 +40,7 @@ function MovieItem({ movie, onDelete, onEdit }) {
                         type="text"
                         value={genre}
                         onChange={(event) => setGenre(event.target.value)}
+                        placeholder="Genre"
                         required
                     />
 
@@ -44,7 +48,15 @@ function MovieItem({ movie, onDelete, onEdit }) {
                         type="number"
                         value={year}
                         onChange={(event) => setYear(event.target.value)}
+                        placeholder="Year"
                         required
+                    />
+
+                    <input
+                        type="url"
+                        value={posterUrl}
+                        onChange={(event) => setPosterUrl(event.target.value)}
+                        placeholder="Poster image URL"
                     />
 
                     <button type="submit">Save Changes</button>
@@ -58,6 +70,19 @@ function MovieItem({ movie, onDelete, onEdit }) {
                 </form>
             ) : (
                 <>
+                    {posterUrl ? (
+                        <img
+                            src={posterUrl}
+                            alt={`${movie.title} poster`}
+                            className="movie-poster"
+                        />
+                    ) : (
+                        <div className="movie-poster-placeholder">
+                            🎬
+                            <p>Poster coming soon</p>
+                        </div>
+                    )}
+
                     <h3>{movie.title}</h3>
                     <p>Genre: {movie.genre}</p>
                     <p>Year: {movie.year}</p>
