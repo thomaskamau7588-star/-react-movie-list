@@ -12,6 +12,7 @@ function MovieList() {
     ]);
 
     const [searchTerm, setSearchTerm] = useState("");
+    const [selectedGenre, setSelectedGenre] = useState("All Genres");
 
     // Add Movie
     const handleAddMovie = (event) => {
@@ -23,11 +24,10 @@ function MovieList() {
             id: Date.now(),
             title: form.title.value,
             genre: form.genre.value,
-            year: form.year.value
+            year: Number(form.year.value)
         };
 
         setMovies([...movies, newMovie]);
-
         form.reset();
     };
 
@@ -36,10 +36,33 @@ function MovieList() {
         setMovies(movies.filter((movie) => movie.id !== id));
     };
 
-    // Search Movies
-    const filteredMovies = movies.filter((movie) =>
-        movie.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    // Edit Movie
+    const handleEditMovie = (id, updatedMovie) => {
+        setMovies(movies.map((movie) =>
+            movie.id === id
+                ? { ...movie, ...updatedMovie }
+                : movie
+        ));
+    };
+
+    // Get Available Genres
+    const genres = [
+        "All Genres",
+        ...new Set(movies.map((movie) => movie.genre))
+    ];
+
+    // Search and Filter Movies
+    const filteredMovies = movies.filter((movie) => {
+        const matchesSearch = movie.title
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase());
+
+        const matchesGenre =
+            selectedGenre === "All Genres" ||
+            movie.genre === selectedGenre;
+
+        return matchesSearch && matchesGenre;
+    });
 
     return (
         <div>
@@ -52,6 +75,19 @@ function MovieList() {
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
             />
+
+            {/* Filter by Genre */}
+            <select
+                className="genre-filter"
+                value={selectedGenre}
+                onChange={(event) => setSelectedGenre(event.target.value)}
+            >
+                {genres.map((genre) => (
+                    <option key={genre} value={genre}>
+                        {genre}
+                    </option>
+                ))}
+            </select>
 
             {/* Add Movie Form */}
             <form className="movie-form" onSubmit={handleAddMovie}>
@@ -87,6 +123,7 @@ function MovieList() {
                             key={movie.id}
                             movie={movie}
                             onDelete={handleDeleteMovie}
+                            onEdit={handleEditMovie}
                         />
                     ))
                 ) : (
