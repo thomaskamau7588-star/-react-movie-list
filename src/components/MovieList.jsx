@@ -18,6 +18,7 @@ function MovieList() {
 
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedGenre, setSelectedGenre] = useState("All Genres");
+    const [sortOption, setSortOption] = useState("default");
 
     // Save Movies to Local Storage
     useEffect(() => {
@@ -50,9 +51,7 @@ function MovieList() {
     // Edit Movie
     const handleEditMovie = (id, updatedMovie) => {
         setMovies(movies.map((movie) =>
-            movie.id === id
-                ? { ...movie, ...updatedMovie }
-                : movie
+            movie.id === id ? { ...movie, ...updatedMovie } : movie
         ));
     };
 
@@ -73,6 +72,23 @@ function MovieList() {
             movie.genre === selectedGenre;
 
         return matchesSearch && matchesGenre;
+    });
+
+    // Sort Movies
+    const sortedMovies = [...filteredMovies].sort((a, b) => {
+        if (sortOption === "title") {
+            return a.title.localeCompare(b.title);
+        }
+
+        if (sortOption === "newest") {
+            return b.year - a.year;
+        }
+
+        if (sortOption === "oldest") {
+            return a.year - b.year;
+        }
+
+        return 0;
     });
 
     return (
@@ -104,6 +120,18 @@ function MovieList() {
                         {genre}
                     </option>
                 ))}
+            </select>
+
+            {/* Sort Movies */}
+            <select
+                className="genre-filter"
+                value={sortOption}
+                onChange={(event) => setSortOption(event.target.value)}
+            >
+                <option value="default">Sort Movies</option>
+                <option value="title">Title (A-Z)</option>
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
             </select>
 
             {/* Add Movie Form */}
@@ -140,8 +168,8 @@ function MovieList() {
 
             {/* Movie List */}
             <div className="movie-list">
-                {filteredMovies.length > 0 ? (
-                    filteredMovies.map((movie) => (
+                {sortedMovies.length > 0 ? (
+                    sortedMovies.map((movie) => (
                         <MovieItem
                             key={movie.id}
                             movie={movie}

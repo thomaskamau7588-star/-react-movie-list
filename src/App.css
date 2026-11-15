@@ -52,7 +52,7 @@ main {
     margin-bottom: 20px;
 }
 
-/* Search and Filter */
+/* Search, Filter and Sort */
 .search-input,
 .genre-filter {
     padding: 12px;
@@ -63,11 +63,11 @@ main {
 }
 
 .search-input {
-    width: 65%;
+    width: 40%;
 }
 
 .genre-filter {
-    width: 32%;
+    width: 28%;
 }
 
 /* Movie Form */
