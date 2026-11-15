@@ -32,8 +32,8 @@ function MovieList() {
 
         const newMovie = {
             id: Date.now(),
-            title: form.title.value,
-            genre: form.genre.value,
+            title: form.title.value.trim(),
+            genre: form.genre.value.trim(),
             year: Number(form.year.value)
         };
 
@@ -74,8 +74,18 @@ function MovieList() {
         return matchesSearch && matchesGenre;
     });
 
+    // Movie Statistics
+    const totalMovies = movies.length;
+    const displayedMovies = filteredMovies.length;
+
     return (
         <div>
+
+            {/* Movie Statistics */}
+            <div className="movie-stats">
+                <p>Total Movies: {totalMovies}</p>
+                <p>Showing: {displayedMovies}</p>
+            </div>
 
             {/* Search Movies */}
             <input

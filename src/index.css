@@ -6,14 +6,56 @@
     box-sizing: border-box;
 }
 
-/* Page Styling */
-body {
+/* Root Styling */
+:root {
     font-family: Arial, sans-serif;
-    background-color: #f1f8f3;
-    color: #222;
+    color: #222222;
+    background-color: #f8f5fb;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Global Heading */
+/* Body Styling */
+body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    background-color: #f8f5fb;
+    font-family: Arial, sans-serif;
+}
+
+/* Root Container */
+#root {
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Headings */
 h1, h2, h3 {
-    color: #1b4332;
+    color: #684087;
+}
+
+/* Paragraphs */
+p {
+    line-height: 1.5;
+}
+
+/* Buttons */
+button {
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+}
+
+/* Form Elements */
+input, select {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+}
+
+/* Responsive Images */
+img {
+    max-width: 100%;
+    display: block;
 }

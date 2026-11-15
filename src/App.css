@@ -1,4 +1,18 @@
 
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f5fb;
+    color: #222;
+}
+
 /* Main App */
 .app {
     max-width: 1100px;
@@ -25,19 +39,80 @@ header p {
     color: white;
 }
 
-/* Movie List */
+/* Main Content */
+main {
+    width: 100%;
+}
+
+/* Movie Statistics */
+.movie-stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Search and Filter */
+.search-input,
+.genre-filter {
+    padding: 12px;
+    border: 1px solid #d6c5e3;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+.search-input {
+    width: 65%;
+}
+
+.genre-filter {
+    width: 32%;
+}
+
+/* Movie Form */
+.movie-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.movie-form input {
+    flex: 1;
+    min-width: 150px;
+    padding: 12px;
+    border: 1px solid #d6c5e3;
+    border-radius: 6px;
+}
+
+/* Buttons */
+button {
+    background-color: #8a5bae;
+    color: white;
+    border: none;
+    padding: 11px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 5px 5px 5px 0;
+}
+
+button:hover {
+    background-color: #684087;
+}
+
+/* Movie Cards */
 .movie-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 20px;
 }
 
-/* Movie Card */
 .movie-card {
     background-color: white;
     padding: 25px;
     border-radius: 10px;
-    border: 1px solid #d8e8dc;
+    border: 1px solid #e4d7ed;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease;
 }
@@ -47,6 +122,7 @@ header p {
 }
 
 .movie-card h3 {
+    color: #684087;
     margin-bottom: 15px;
 }
 
@@ -55,13 +131,31 @@ header p {
     color: #555;
 }
 
+/* Edit Form */
+.movie-card form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #d6c5e3;
+    border-radius: 6px;
+}
+
 /* Mobile Layout */
 @media (max-width: 600px) {
     .app {
         padding: 20px 15px;
     }
 
-    header {
-        padding: 25px 15px;
+    .movie-stats {
+        flex-direction: column;
+    }
+
+    .search-input,
+    .genre-filter {
+        width: 100%;
+    }
+
+    .movie-form {
+        flex-direction: column;
     }
 }
