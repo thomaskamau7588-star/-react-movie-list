@@ -1,18 +1,28 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MovieItem from "./MovieItem";
 
 function MovieList() {
 
-    const [movies, setMovies] = useState([
-        { id: 1, title: "Black Panther", genre: "Action", year: 2018 },
-        { id: 2, title: "The Avengers", genre: "Action", year: 2012 },
-        { id: 3, title: "Titanic", genre: "Romance", year: 1997 },
-        { id: 4, title: "Spider-Man", genre: "Adventure", year: 2021 }
-    ]);
+    // Load Movies from Local Storage
+    const [movies, setMovies] = useState(() => {
+        const savedMovies = localStorage.getItem("movies");
+
+        return savedMovies ? JSON.parse(savedMovies) : [
+            { id: 1, title: "Black Panther", genre: "Action", year: 2018 },
+            { id: 2, title: "The Avengers", genre: "Action", year: 2012 },
+            { id: 3, title: "Titanic", genre: "Romance", year: 1997 },
+            { id: 4, title: "Spider-Man", genre: "Adventure", year: 2021 }
+        ];
+    });
 
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedGenre, setSelectedGenre] = useState("All Genres");
+
+    // Save Movies to Local Storage
+    useEffect(() => {
+        localStorage.setItem("movies", JSON.stringify(movies));
+    }, [movies]);
 
     // Add Movie
     const handleAddMovie = (event) => {
