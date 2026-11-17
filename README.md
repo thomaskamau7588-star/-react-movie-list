@@ -19,7 +19,7 @@ My Movie List is a React web application that allows users to organize and manag
 - CSS
 - Vite
 - Github pages
-
+- Vercel
 ## Installation
 1. Clone the repository.
 https://github.com/thomaskamau7588-star/-react-movie-list
